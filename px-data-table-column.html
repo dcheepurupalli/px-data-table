@@ -40,7 +40,8 @@ Element that defines a columns in a data table.
        */
       label: {
         type: String,
-        value: ""
+        value: "",
+        reflectToAttribute: true
       },
 
       /**
@@ -164,7 +165,8 @@ Element that defines a columns in a data table.
        */
       hide: {
         type: Boolean,
-        value: false
+        value: false,
+        reflectToAttribute: true
       },
       _highLightElLoadedCount: {
         type: Number,
