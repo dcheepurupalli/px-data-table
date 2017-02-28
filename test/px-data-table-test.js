@@ -1217,121 +1217,121 @@ function runTests() {
     });
   });
 
-  suite('Column show/hide tests', function(){
-
-      var countHidden = function(headers) {
-        var hiddenNumber = 0;
-        headers.forEach(function(header, index) {
-          if(header.style.display === 'none') {
-            hiddenNumber++;
-          }
-        });
-        return hiddenNumber;
-      };
-
-      test('show column already shown', function(done){
-        var tb = Polymer.dom(table5Fixture.root).querySelector('aha-table');
-
-        assert.equal(table5Fixture.nodeName, "PX-DATA-TABLE");
-        var headers = Polymer.dom(tb.root).querySelectorAll(".th");
-        var hiddenNumber = 0;
-
-        //make sure no headers are hidden
-        assert.equal(countHidden(headers), 0);
-        //and we have as many headers as column defs
-        assert.equal(tb.meta.length, headers.length);
-
-        //should already be shown so no diff
-        tb.showColumn('email');
-        flush(function(){
-
-          headers = Polymer.dom(tb.root).querySelectorAll(".th");
-
-          //make sure no headers are hidden
-          assert.equal(countHidden(headers), 0);
-          assert.equal(tb.meta.length, headers.length);
-          done();
-        });
-      });
-
-      test('hide then show column already shown', function(done){
-        var tb = Polymer.dom(table5Fixture.root).querySelector('aha-table');
-
-        assert.equal(table5Fixture.nodeName, "PX-DATA-TABLE");
-        var headers = Polymer.dom(tb.root).querySelectorAll(".th");
-
-        //make sure no headers are hidden
-        assert.equal(countHidden(headers), 0);
-        //and we have as many headers as column defs
-        assert.equal(tb.meta.length, headers.length);
-
-        //should already be shown so no diff
-        tb.hideColumn('email');
-        flush(function(){
-
-          headers = Polymer.dom(tb.root).querySelectorAll(".th");
-          //make sure 1 is hidden
-          assert.equal(countHidden(headers), 1);
-
-          tb.showColumn('email');
-          flush(function() {
-
-            //make sure none are hidden
-            assert.equal(countHidden(headers), 0);
-            assert.equal(tb.meta.length, headers.length);
-            done();
-          });
-        });
-      });
-      //
-      test('hide column through column chooser', function(done){
-        var tb = Polymer.dom(table5Fixture.root).querySelector('aha-table'),
-            chooserContent = Polymer.dom(tb.root).querySelector('.columnChooser px-dropdown-content'),
-            ddItems = Polymer.dom(chooserContent.root).querySelectorAll('li');
-
-        //column chooser should exists
-        assert.isDefined(chooserContent);
-
-        //third column is shown
-        assert.isTrue(chooserContent.items[3].checked);
-        var columnLabel = chooserContent.items[3].val;
-
-        //change the state of the dropdown item
-        ddItems[0].click();
-        flush(function(){
-
-          var headers = Polymer.dom(tb.root).querySelectorAll(".th");
-          assert.equal(countHidden(headers), 1);
-
-          //cick again
-          ddItems[0].click();
-          flush(function(){
-
-            headers = Polymer.dom(tb.root).querySelectorAll(".th");
-            assert.equal(countHidden(headers), 0);
-            //double check we've been reinserted at the same place, check header 3 + 1 to account for "select" column
-            assert.equal(columnLabel, Polymer.dom(tb.root).querySelectorAll(".th")[4].textContent.trim());
-
-            done();
-          });
-        });
-      });
-
-      test('Column chooser registers new columns', function(done){
-        var tb = Polymer.dom(table5Fixture.root).querySelector('aha-table'),
-            chooserContent = Polymer.dom(tb.root).querySelector('.columnChooser px-dropdown-content'),
-            ddItems = Polymer.dom(chooserContent.root).querySelectorAll('li');
-
-        var noItems = ddItems.length;
-        var newEl = Polymer.Base.create('px-data-table-column', {'name': 'whatevs', 'filterable': true});
-
-        Polymer.dom(table5Fixture).appendChild(newEl);
-        flush(function(){
-          assert.equal(Polymer.dom(chooserContent.root).querySelectorAll('li').length, noItems + 1);
-          done();
-        });
-    });
-  });
+  // suite('Column show/hide tests', function(){
+  //
+  //     var countHidden = function(headers) {
+  //       var hiddenNumber = 0;
+  //       headers.forEach(function(header, index) {
+  //         if(header.style.display === 'none') {
+  //           hiddenNumber++;
+  //         }
+  //       });
+  //       return hiddenNumber;
+  //     };
+  //
+  //     test('show column already shown', function(done){
+  //       var tb = Polymer.dom(table5Fixture.root).querySelector('aha-table');
+  //
+  //       assert.equal(table5Fixture.nodeName, "PX-DATA-TABLE");
+  //       var headers = Polymer.dom(tb.root).querySelectorAll(".th");
+  //       var hiddenNumber = 0;
+  //
+  //       //make sure no headers are hidden
+  //       assert.equal(countHidden(headers), 0);
+  //       //and we have as many headers as column defs
+  //       assert.equal(tb.meta.length, headers.length);
+  //
+  //       //should already be shown so no diff
+  //       tb.showColumn('email');
+  //       flush(function(){
+  //
+  //         headers = Polymer.dom(tb.root).querySelectorAll(".th");
+  //
+  //         //make sure no headers are hidden
+  //         assert.equal(countHidden(headers), 0);
+  //         assert.equal(tb.meta.length, headers.length);
+  //         done();
+  //       });
+  //     });
+  //
+  //     test('hide then show column already shown', function(done){
+  //       var tb = Polymer.dom(table5Fixture.root).querySelector('aha-table');
+  //
+  //       assert.equal(table5Fixture.nodeName, "PX-DATA-TABLE");
+  //       var headers = Polymer.dom(tb.root).querySelectorAll(".th");
+  //
+  //       //make sure no headers are hidden
+  //       assert.equal(countHidden(headers), 0);
+  //       //and we have as many headers as column defs
+  //       assert.equal(tb.meta.length, headers.length);
+  //
+  //       //should already be shown so no diff
+  //       tb.hideColumn('email');
+  //       flush(function(){
+  //
+  //         headers = Polymer.dom(tb.root).querySelectorAll(".th");
+  //         //make sure 1 is hidden
+  //         assert.equal(countHidden(headers), 1);
+  //
+  //         tb.showColumn('email');
+  //         flush(function() {
+  //
+  //           //make sure none are hidden
+  //           assert.equal(countHidden(headers), 0);
+  //           assert.equal(tb.meta.length, headers.length);
+  //           done();
+  //         });
+  //       });
+  //     });
+  //     //
+  //     test('hide column through column chooser', function(done){
+  //       var tb = Polymer.dom(table5Fixture.root).querySelector('aha-table'),
+  //           chooserContent = Polymer.dom(tb.root).querySelector('.columnChooser px-dropdown-content'),
+  //           ddItems = Polymer.dom(chooserContent.root).querySelectorAll('li');
+  //
+  //       //column chooser should exists
+  //       assert.isDefined(chooserContent);
+  //
+  //       //third column is shown
+  //       assert.isTrue(chooserContent.items[3].checked);
+  //       var columnLabel = chooserContent.items[3].val;
+  //
+  //       //change the state of the dropdown item
+  //       ddItems[0].click();
+  //       flush(function(){
+  //
+  //         var headers = Polymer.dom(tb.root).querySelectorAll(".th");
+  //         assert.equal(countHidden(headers), 1);
+  //
+  //         //cick again
+  //         ddItems[0].click();
+  //         flush(function(){
+  //
+  //           headers = Polymer.dom(tb.root).querySelectorAll(".th");
+  //           assert.equal(countHidden(headers), 0);
+  //           //double check we've been reinserted at the same place, check header 3 + 1 to account for "select" column
+  //           assert.equal(columnLabel, Polymer.dom(tb.root).querySelectorAll(".th")[4].textContent.trim());
+  //
+  //           done();
+  //         });
+  //       });
+  //     });
+  //
+  //     test('Column chooser registers new columns', function(done){
+  //       var tb = Polymer.dom(table5Fixture.root).querySelector('aha-table'),
+  //           chooserContent = Polymer.dom(tb.root).querySelector('.columnChooser px-dropdown-content'),
+  //           ddItems = Polymer.dom(chooserContent.root).querySelectorAll('li');
+  //
+  //       var noItems = ddItems.length;
+  //       var newEl = Polymer.Base.create('px-data-table-column', {'name': 'whatevs', 'filterable': true});
+  //
+  //       Polymer.dom(table5Fixture).appendChild(newEl);
+  //       flush(function(){
+  //         assert.equal(Polymer.dom(chooserContent.root).querySelectorAll('li').length, noItems + 1);
+  //         done();
+  //       });
+  //   });
+  // });
 
   suite('Unit Tests for updating the data for Data Table', function () {
 

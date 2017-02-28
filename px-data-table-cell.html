@@ -36,7 +36,8 @@
               bound-target="{{dropdownBounds}}"
               display-value="{{cellDisplayValue}}"
               content-anchor="{{_cellAnchor}}"
-              on-change="saveCell">
+              on-change="saveCell"
+              disabled="{{dropdownDisabled}}">
               <px-dropdown-content
                 class="px-dropdown-content"
                 extend-dropdown="true"
@@ -134,6 +135,10 @@
           value: function(){return [];},
           notify: true,
           observer: '_setDropdownItem'
+        },
+        dropdownDisabled:{
+          type: Boolean,
+          value: false
         },
         dropdownBounds:{
           type: HTMLElement,

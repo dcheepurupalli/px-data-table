@@ -69,7 +69,8 @@ Element that defines a columns in a data table.
        */
       sortable: {
         type: Boolean,
-        value: false
+        value: false,
+        reflectToAttribute: true
       },
 
       /**
@@ -81,7 +82,8 @@ Element that defines a columns in a data table.
        */
       editable: {
         type: Boolean,
-        value: false
+        value: false,
+        reflectToAttribute: true
       },
 
       /**
@@ -94,7 +96,7 @@ Element that defines a columns in a data table.
       filterable: {
         type: Boolean,
         value: false,
-        notify: true
+        reflectToAttribute: true
       },
 
       /**
@@ -110,7 +112,8 @@ Element that defines a columns in a data table.
        */
       sortFunctionName: {
         type: String,
-        value: ""
+        value: "",
+        reflectToAttribute: true
       },
 
       /**
@@ -126,7 +129,8 @@ Element that defines a columns in a data table.
        */
       filterFunctionName: {
         type: String,
-        value: ""
+        value: "",
+        reflectToAttribute: true
       },
 
       /**
@@ -138,7 +142,8 @@ Element that defines a columns in a data table.
        */
       maxColumnCharacterWidth: {
         type: Number,
-        value: 0
+        value: 0,
+        reflectToAttribute: true
       },
 
       /**
@@ -152,15 +157,28 @@ Element that defines a columns in a data table.
        */
       ellipsisClipPosition: {
         type: String,
-        value: "right"
-      },
-      dropdownItems:{
-        type: Array,
-        value: function() {return [];},
-        notify: true
+        value: "right",
+        reflectToAttribute: true
       },
       /**
-       * Whether the column should be hidden
+       * For column type 'dropdown', the options that will appear in each dropdown.
+       */
+      dropdownItems: {
+        type: Array,
+        value: function() {return [];},
+        notify: true,
+        reflectToAttribute: true
+      },
+      /**
+       * For column type 'dropdown', whether the dropdown should be disabled.
+       */
+      dropdownDisabled: {
+        type: Boolean,
+        value: false,
+        reflectToAttribute: true
+      },
+      /**
+       * Whether the column should be hidden.
        *
        */
       hide: {

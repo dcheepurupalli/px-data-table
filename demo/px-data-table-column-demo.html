@@ -39,7 +39,7 @@
       <px-demo-component>
 
         <div>
-          <px-data-table table-data={{tableData}} filterable hide-pagination-control="true">
+          <px-data-table table-data={{tableData}} filterable hide-pagination-control>
             <px-data-table-column
               name="first"
               type="{{props.type.value}}"
@@ -47,6 +47,7 @@
               sortable="{{props.sortable.value}}"
               editable="{{props.editable.value}}"
               filterable="{{props.filterable.value}}"
+              dropdown-disabled="{{props.dropdownDisabled.value}}"
               dropdown-items="{{props.dropdownItems.value}}"
               hide="{{props.hide.value}}">
             </px-data-table-column>
@@ -109,14 +110,16 @@
           ];
           return [
             { configName: "Editable",
-              configHideProps: ['dropdownItems','parentComponent','siblingElement'],
+              configHideProps: ['dropdownItems','dropdownDisabled','parentComponent','siblingElement'],
               name: "first",
               label: "First",
-              filterable: true,
+              filterable: false,
               sortable: true,
               editable: true,
               type: "string",
               hide: false,
+              dropdownItems: [],
+              dropdownDisabled: false,
               parentComponent: ["<px-data-table table-data='" + JSON.stringify(tableData) + "'>", "</px-data-table>"],
               siblingElement: '<px-data-table-column name="last"></px-data-table-column><px-data-table-column name="email"></px-data-table-column>' },
 
@@ -129,6 +132,7 @@
               editable: false,
               type: "dropdown",
               hide: false,
+              dropdownDisabled: false,
               dropdownItems: [{"key":"one","val":"Mike"},{"key":"two","val":"Maria"},{"key":"three","val":"Wei"}],
               parentComponent: ["<px-data-table table-data='" + JSON.stringify(tableData) + "'>", "</px-data-table>"],
               siblingElement: '<px-data-table-column name="last"></px-data-table-column><px-data-table-column name="email"></px-data-table-column>' }
@@ -164,8 +168,7 @@
 
       filterable: {
         type: Boolean,
-        defaultValue: true,
-        inputType: 'toggle'
+        defaultValue: false
       },
 
       sortable: {
@@ -188,17 +191,19 @@
 
       dropdownItems: {
         type: Array,
-        defaultValue: function() {
-          return [{"key":"one","val":"Mike"},{"key":"two","val":"Maria"},{"key":"three","val":"Wei"}];
-        },
+        defaultValue: [],
         inputType: 'code:JSON'
+      },
+
+      dropdownDisabled: {
+        type: Boolean,
+        defaultValue: false,
+        inputType: 'toggle'
       },
 
       parentComponent: {
         type: Array,
-        defaultValue: function() {
-          return ["<px-data-table>","</px-data-table>"];
-        }
+        defaultValue: ["<px-data-table>","</px-data-table>"]
       },
 
       siblingElement: {
